@@ -1,13 +1,12 @@
-package homework;
+package homework.figurepainter;
 
-public class FigurePainter {
+public class FigurePainter3 {
     public static void main(String[] args) {
-        for (int i = 0; i < 4; i++) {
+        for (int i = 4; i > 0; i--) {
             for (int j = 0; i > j; j++) {
                 System.out.print("* ");
             }
-            System.out.println("*");
+            System.out.println(" ");
         }
     }
 }
-
