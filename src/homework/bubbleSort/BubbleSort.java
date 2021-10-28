@@ -1,4 +1,4 @@
-package homework.bubblesort;
+package homework.bubbleSort;
 
 public class BubbleSort {
     public static void main(String[] args) {
