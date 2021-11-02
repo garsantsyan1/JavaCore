@@ -2,7 +2,7 @@ package chapter6;
 
 public class BoxDemo {
     public static void main(String[] args) {
-        Box mybox = new Box();
+        Box mybox = new Box(5, 3, 2);
         double vol;
 
         mybox.width = 10;

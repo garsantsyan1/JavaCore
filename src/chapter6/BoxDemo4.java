@@ -2,8 +2,8 @@ package chapter6;
 
 public class BoxDemo4 {
     public static void main(String[] args) {
-        Box mybox1 = new Box();
-        Box mybox2 = new Box();
+        Box mybox1 = new Box(14, 41, 55);
+        Box mybox2 = new Box(87, 79, 75);
         double vol;
 
         mybox1.width = 10;

@@ -2,7 +2,7 @@ package homework.bubbleSort;
 
 public class BubbleSort {
 
-    int[] sort(int[] arr) {
+    void sort(int[] arr) {
         boolean sorted;
         for (int i = arr.length - 1; i > 0; i--) {
             sorted = true;
@@ -18,7 +18,10 @@ public class BubbleSort {
                 break;
             }
         }
-        return arr;
+
+        for (int val : arr) {
+            System.out.print(val + " ");
+        }
     }
 }
 
