@@ -1,4 +1,4 @@
-package braceChecker;
+package homework.braceChecker;
 
 public class Stack {
 
