@@ -60,7 +60,7 @@ public class DynamicArray {
         System.out.println();
     }
 
-    void delete(int index) {
+    public void delete(int index) {
         if (index < 0 || index > size) {
             System.err.println("invalid index: " + index);
         } else {
