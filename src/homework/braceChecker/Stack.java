@@ -2,32 +2,38 @@ package homework.braceChecker;
 
 public class Stack {
 
-    private int[] array = new int[10];
-    private int size;
+    private int[] array;
+    private int index;
 
     public Stack() {
-        size = -1;
+        array = new int[10];
+        index = -1;
+    }
+
+    Stack(int length) {
+        array = new int[length];
+        index = -1;
     }
 
     public void push(int value) {
-        if (size == array.length) {
+        if (index == array.length - 1) {
             System.out.println("stack-ը վերջացավ");
         } else {
-            array[++size] = value;
+            array[++index] = value;
         }
     }
 
     public int pop() {
-        if (size < 0) {
+        if (index < 0) {
             System.out.println("stack-ը դատարկ է");
             return 0;
         } else {
-            return array[size--];
+            return array[index--];
         }
     }
 
     public boolean isEmpty() {
-        return size == -1;
+        return index == -1;
     }
 
 
