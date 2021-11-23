@@ -12,9 +12,9 @@ public class AuthorStorage {
     }
 
     private void extend() {
-        Author[] newArray = new Author[authors.length + 10];
-        System.arraycopy(authors, 0, newArray, 0, authors.length);
-        authors = newArray;
+        Author[] tmp = new Author[authors.length + 10];
+        System.arraycopy(authors, 0, tmp, 0, authors.length);
+        authors = tmp;
     }
 
 
@@ -43,11 +43,40 @@ public class AuthorStorage {
 
     public void searchByAge(int minAge, int maxAge) {
         for (int i = 0; i < size; i++) {
-            if (authors[i].getAge() > minAge && authors[i].getAge() < maxAge) {
+            if (authors[i].getAge() >= minAge && authors[i].getAge() <= maxAge) {
                 System.out.println(authors[i]);
             }
         }
 
     }
+
+    public Author getByEmail(String email) {
+        for (int i = 0; i < size; i++) {
+            if (authors[i].getEmail().equals(email)) {
+                return authors[i];
+            }
+        }
+        return null;
+    }
+
+    public void changeAuthor(String email, String name, String surname, String gender, int age) {
+        for (int i = 0; i < size; i++) {
+            if (authors[i].getEmail().equals(email)) {
+                if (!name.equals("")) {
+                    authors[i].setName(name);
+                }
+                if (!surname.equals("")) {
+                    authors[i].setSurname(surname);
+                }
+                if (!gender.equals("")) {
+                    authors[i].setGender(gender);
+                }
+                if (age != 0) {
+                    authors[i].setAge(age);
+                }
+            }
+        }
+    }
+
 
 }

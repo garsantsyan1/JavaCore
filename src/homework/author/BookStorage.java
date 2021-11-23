@@ -37,4 +37,30 @@ public class BookStorage {
         }
     }
 
+    public void searchBookByAuthor(String email) {
+        for (int i = 0; i < size; i++) {
+            if (books[i].getAuthor().getEmail().equals(email)) {
+                System.out.println(books[i]);
+            }
+        }
+    }
+
+    public void countBooksByAuthor(String email) {
+        int count = 0;
+        for (int i = 0; i < size; i++) {
+            if (books[i].getAuthor().getEmail().equals(email)) {
+                count++;
+            }
+        }
+        System.out.println(count);
+    }
+
+    public Book getByTitle(String title) {
+        for (int i = 0; i < size; i++) {
+            if (books[i].getTitle().equals(title)) {
+                return books[i];
+            }
+        }
+        return null;
+    }
 }
