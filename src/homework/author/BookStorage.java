@@ -63,4 +63,41 @@ public class BookStorage {
         }
         return null;
     }
+
+    public void deleteByAuthor(String email) {
+        boolean delete = true;
+        int i = 0;
+        while (i < size) {
+            if (books[i].getAuthor().getEmail().equals(email)) {
+                for (int j = i + 1; j < size; j++) {
+                    books[j - 1] = books[j];
+                }
+                size--;
+                delete = false;
+            }
+            if (delete) {
+                i++;
+            }
+            delete = true;
+        }
+
+    }
+
+    public void deleteBook(String title) {
+        boolean delete = true;
+        int i = 0;
+        while (i < size) {
+            if (books[i].getTitle().equals(title)) {
+                for (int j = i + 1; j < size; j++) {
+                    books[j - 1] = books[j];
+                }
+                size--;
+                delete = false;
+            }
+            if (delete) {
+                i++;
+            }
+            delete = true;
+        }
+    }
 }
