@@ -37,7 +37,7 @@ public class BookStorage {
         }
     }
 
-    public void searchBookByAuthor(String email) {
+    public void searchBooksByAuthor(String email) {
         for (int i = 0; i < size; i++) {
             if (books[i].getAuthor().getEmail().equals(email)) {
                 System.out.println(books[i]);

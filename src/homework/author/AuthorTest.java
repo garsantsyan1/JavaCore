@@ -68,7 +68,7 @@ public class AuthorTest {
                     searchBookByTitle();
                     break;
                 case SEARCH_BOOKS_BY_AUTHOR:
-                    searchBookByAuthor();
+                    searchBooksByAuthor();
                     break;
                 case COUNT_BOOKS_BY_AUTHOR:
                     countBooksByAuthor();
@@ -157,22 +157,25 @@ public class AuthorTest {
     private static void changeAuthor() {
         System.out.println("please input email for changing author date");
         String email = scanner.nextLine();
-        System.out.println("please input author name for changing");
-        String name = scanner.nextLine();
-        System.out.println("please input author surname for changing");
-        String surname = scanner.nextLine();
-        System.out.println("please input author gender for changing");
-        String gender = scanner.nextLine();
-        System.out.println("please input author age for changing");
-        String strAge = scanner.nextLine();
-        int age;
-        if (strAge.equals("")) {
-            age = 0;
+        if (authorStorage.getByEmail(email) == null) {
+            System.out.println("Author for this email doesn't exist");
         } else {
-            age = Integer.parseInt(strAge);
+            System.out.println("please input author name for changing");
+            String name = scanner.nextLine();
+            System.out.println("please input author surname for changing");
+            String surname = scanner.nextLine();
+            System.out.println("please input author gender for changing");
+            String gender = scanner.nextLine();
+            System.out.println("please input author age for changing");
+            String strAge = scanner.nextLine();
+            int age;
+            if (strAge.equals("")) {
+                age = 0;
+            } else {
+                age = Integer.parseInt(strAge);
+            }
+            authorStorage.changeAuthor(email, name, surname, gender, age);
         }
-        authorStorage.changeAuthor(email, name, surname, gender, age);
-
     }
 
     private static void countBooksByAuthor() {
@@ -181,10 +184,10 @@ public class AuthorTest {
         bookStorage.countBooksByAuthor(email);
     }
 
-    private static void searchBookByAuthor() {
+    private static void searchBooksByAuthor() {
         System.out.println("please input email for searching author");
         String email = scanner.nextLine();
-        bookStorage.searchBookByAuthor(email);
+        bookStorage.searchBooksByAuthor(email);
     }
 
     private static void searchBookByTitle() {
@@ -215,7 +218,7 @@ public class AuthorTest {
             bookStorage.add(book);
         } else {
             System.out.println("invalid email! please try again");
-            addBook();
+            addAuthor();
         }
 
 
@@ -231,7 +234,7 @@ public class AuthorTest {
     }
 
     private static void printCommands() {
-        System.out.println("\u001B[34m" + "please input " + EXIT + " for EXiT");
+        System.out.println("\u001B[34m" + "please input " + EXIT + " for EXIT");
         System.out.println("please input " + ADD_AUTHOR + " for add author");
         System.out.println("please input " + ADD_BOOK + " for add book");
         System.out.println("please input " + SEARCH_AUTHORS + " for search author by name");
