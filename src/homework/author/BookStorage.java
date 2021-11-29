@@ -64,6 +64,13 @@ public class BookStorage {
         return null;
     }
 
+    private void deleteByIndex(int index) {
+        for (int i = index + 1; i < size; i++) {
+            books[i - 1] = books[i];
+        }
+        size--;
+    }
+
     public void deleteByAuthor(String email) {
         boolean delete = true;
         int i = 0;
@@ -80,16 +87,12 @@ public class BookStorage {
             }
             delete = true;
         }
-
     }
 
     public void deleteBook(String title) {
         for (int i = 0; i < size; i++) {
             if (books[i].getTitle().equals(title)) {
-                for (int j = i + 1; j < size; j++) {
-                    books[j - 1] = books[j];
-                }
-                size--;
+                deleteByIndex(i);
             }
         }
     }
