@@ -61,7 +61,7 @@ public class StudentTest {
             studentStorage.deleteStudentByEmail(email);
             System.out.println("student successfully deleted");
         } else {
-            System.err.println("lesson doesn't exist");
+            System.err.println("There isn't student by this email");
         }
     }
 
