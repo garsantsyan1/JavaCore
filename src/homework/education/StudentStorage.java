@@ -24,7 +24,6 @@ public class StudentStorage {
         System.out.println();
     }
 
-
     public Student getByEmail(String email) {
         for (int i = 0; i < size; i++) {
             if (students[i].getEmail().equals(email)) {
@@ -36,8 +35,10 @@ public class StudentStorage {
 
     public void printStudentsByLesson(String name) {
         for (int i = 0; i < size; i++) {
-            if (students[i].getLesson().getName().equals(name)) {
-                System.out.println(students[i] + " ");
+            for (int j = 0; j < students[i].getLessons().length; j++) {
+                if (students[i].getLessons()[j].getName().equals(name)) {
+                    System.out.println(students[i] + " ");
+                }
             }
         }
         System.out.println();

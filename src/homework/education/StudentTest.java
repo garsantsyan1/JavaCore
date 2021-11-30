@@ -91,24 +91,26 @@ public class StudentTest {
 
     private static void addStudent() {
 
-        System.out.println("Please input name, surname, age, email, phone, lesson(name)");
+        System.out.println("Please input name, surname, age, email, phone, lessons(name)");
         String studentDataStr = scanner.nextLine();
         String[] studentData = studentDataStr.split(" ");
 
         if (!lessonStorage.lessonsIsEmpty()) {
-            if (studentData.length == 6) {
+            if (studentData.length >= 6) {
                 if (studentStorage.getByEmail(studentData[3]) == null) {
-                    if (lessonStorage.getByName(studentData[5]) != null) {
-                        Lesson lesson = lessonStorage.getByName(studentData[5]);
-                        int age = Integer.parseInt(studentData[2]);
-                        Student student = new Student(studentData[0], studentData[1], age, studentData[3], studentData[4],
-                                lesson);
-                        studentStorage.add(student);
-                    } else {
-                        System.out.println("lesson by this name doesn't exist, add lesson");
-                        addLesson();
-                        addStudent();
+                    Lesson[] lessons = new Lesson[studentData.length - 5];
+                    for (int i = 5, j = 0; i < studentData.length; i++, j++) {
+                        if (lessonStorage.getByName(studentData[i]) != null) {
+                            lessons[j] = lessonStorage.getByName(studentData[i]);
+                        } else {
+                            System.out.println("lesson by this name doesn't exist, add lesson");
+                            addLesson();
+                        }
                     }
+                    int age = Integer.parseInt(studentData[2]);
+                    Student student = new Student(studentData[0], studentData[1], age, studentData[3], studentData[4],
+                            lessons);
+                    studentStorage.add(student);
                 } else {
                     System.out.println("The student already exist by this email");
                     addStudent();
@@ -120,8 +122,6 @@ public class StudentTest {
             System.out.println("lesson doesn't exist, add lesson");
             addLesson();
         }
-
-
     }
 
     private static void addLesson() {
