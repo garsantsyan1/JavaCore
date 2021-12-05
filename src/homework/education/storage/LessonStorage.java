@@ -1,4 +1,6 @@
-package homework.education;
+package homework.education.storage;
+
+import homework.education.model.Lesson;
 
 public class LessonStorage {
     private Lesson[] lessons = new Lesson[10];
@@ -25,7 +27,7 @@ public class LessonStorage {
         System.out.println();
     }
 
-    Lesson getByName(String name) {
+    public Lesson getByName(String name) {
         for (int i = 0; i < size; i++) {
             if (lessons[i].getName().equals(name)) {
                 return lessons[i];

@@ -1,6 +1,9 @@
-package homework.education;
+package homework.education.model;
+
+import Author2.util.DateUtil;
 
 import java.util.Arrays;
+import java.util.Date;
 
 public class Student {
 
@@ -9,15 +12,17 @@ public class Student {
     int age;
     String email;
     String phone;
+    Date registeredDate;
     Lesson[] lessons;
 
 
-    public Student(String name, String surname, int age, String email, String phone, Lesson[] lessons) {
+    public Student(String name, String surname, int age, String email, String phone, Date registeredDate, Lesson[] lessons) {
         this.name = name;
         this.surname = surname;
         this.age = age;
         this.email = email;
         this.phone = phone;
+        this.registeredDate = registeredDate;
         this.lessons = lessons;
     }
 
@@ -69,6 +74,14 @@ public class Student {
         this.lessons = lessons;
     }
 
+    public Date getRegisteredDate() {
+        return registeredDate;
+    }
+
+    public void setRegisteredDate(Date registeredDate) {
+        this.registeredDate = registeredDate;
+    }
+
     @Override
     public String toString() {
         return "Student{" +
@@ -77,8 +90,8 @@ public class Student {
                 ", age=" + age +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
+                ", registeredDate=" + DateUtil.dateToString(registeredDate) +
                 ", lessons=" + Arrays.toString(lessons) +
                 '}';
     }
-
 }

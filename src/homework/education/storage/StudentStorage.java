@@ -1,4 +1,6 @@
-package homework.education;
+package homework.education.storage;
+
+import homework.education.model.Student;
 
 public class StudentStorage {
     private Student[] students = new Student[10];
