@@ -3,53 +3,80 @@ package homework.education;
 
 import homework.education.model.Lesson;
 import homework.education.model.Student;
+import homework.education.model.User;
 import homework.education.storage.LessonStorage;
 import homework.education.storage.StudentStorage;
+import homework.education.storage.UserStorage;
 import homework.education.util.DateUtil;
 
 import java.text.ParseException;
 import java.util.Date;
 import java.util.Scanner;
 
-public class StudentTest implements StudentBookCommands {
+public class StudentTest implements UserCommands {
 
     static Scanner scanner = new Scanner(System.in);
     static StudentStorage studentStorage = new StudentStorage();
     static LessonStorage lessonStorage = new LessonStorage();
+    static UserStorage userStorage = new UserStorage();
 
     public static void main(String[] args) throws ParseException {
         boolean isRun = true;
         while (isRun) {
-            StudentBookCommands.printCommands();
+            UserCommands.printCommands();
             String command = scanner.nextLine();
             switch (command) {
                 case EXIT:
                     isRun = false;
                     break;
-                case ADD_LESSON:
-                    addLesson();
+                case LOGIN:
+                    login();
                     break;
-                case ADD_STUDENT:
-                    addStudent();
-                    break;
-                case PRINT_STUDENTS:
-                    studentStorage.print();
-                    break;
-                case PRINT_STUDENTS_BY_LESSON:
-                    printStudentsByLesson();
-                    break;
-                case PRINT_LESSONS:
-                    lessonStorage.print();
-                    break;
-                case DELETE_LESSON_BY_NAME:
-                    deleteLessonByName();
-                    break;
-                case DELETE_STUDENT_BY_EMAIL:
-                    deleteStudentByEmail();
+                case REGISTER:
+                    register();
                     break;
                 default:
-                    System.out.println("Invalid command!");
+                    System.err.println("Invalid command!");
             }
+        }
+
+
+    }
+
+    private static void register() {
+        System.out.println("please input name, surname, email, password, type");
+        String userDateStr = scanner.nextLine();
+        String[] userDate = userDateStr.split(" ");
+        if (userDate.length == 5) {
+            if (userDate[4].equals("admin") || userDate[4].equals("user")) {
+                if (userStorage.getByEmail(userDate[2]) == null && !userStorage.checkPassword(userDate[3])) {
+                    User user = new User(userDate[0], userDate[1], userDate[2], userDate[3], userDate[4]);
+                    userStorage.add(user);
+                } else {
+                    System.out.println("this credential already exist");
+                }
+            } else {
+                System.err.println("type must be admin or user");
+            }
+        } else {
+            System.err.println("invalid date");
+        }
+
+
+    }
+
+    private static void login() throws ParseException {
+        System.out.println("please input email and password");
+        String credentialStr = scanner.nextLine();
+        String[] credential = credentialStr.split(" ");
+        if (userStorage.getByEmail(credential[0]) != null && userStorage.checkPassword(credential[1])) {
+            if (userStorage.getByType(credential[0]).equals("admin")) {
+                adminCase();
+            } else {
+                userCase();
+            }
+        } else {
+            System.err.println("credentials aren't correct");
         }
     }
 
@@ -142,5 +169,70 @@ public class StudentTest implements StudentBookCommands {
 
     }
 
+    private static void adminCase() throws ParseException {
+        boolean isRun = true;
+        while (isRun) {
+            UserCommands.printAdminCommands();
+            String command = scanner.nextLine();
+            switch (command) {
+                case UserCommands.EXIT:
+                    isRun = false;
+                    break;
+                case ADD_LESSON:
+                    addLesson();
+                    break;
+                case ADD_STUDENT:
+                    addStudent();
+                    break;
+                case PRINT_STUDENTS:
+                    studentStorage.print();
+                    break;
+                case PRINT_STUDENTS_BY_LESSON:
+                    printStudentsByLesson();
+                    break;
+                case PRINT_LESSONS:
+                    lessonStorage.print();
+                    break;
+                case DELETE_LESSON_BY_NAME:
+                    deleteLessonByName();
+                    break;
+                case DELETE_STUDENT_BY_EMAIL:
+                    deleteStudentByEmail();
+                    break;
+                default:
+                    System.out.println("Invalid command!");
+            }
+        }
+    }
+
+    private static void userCase() throws ParseException {
+        boolean isRun = true;
+        while (isRun) {
+            UserCommands.printUserCommands();
+            String command = scanner.nextLine();
+            switch (command) {
+                case UserCommands.EXIT:
+                    isRun = false;
+                    break;
+                case ADD_LESSON:
+                    addLesson();
+                    break;
+                case ADD_STUDENT:
+                    addStudent();
+                    break;
+                case PRINT_STUDENTS:
+                    studentStorage.print();
+                    break;
+                case PRINT_STUDENTS_BY_LESSON:
+                    printStudentsByLesson();
+                    break;
+                case PRINT_LESSONS:
+                    lessonStorage.print();
+                    break;
+                default:
+                    System.out.println("Invalid command!");
+            }
+        }
+    }
 
 }
