@@ -3,11 +3,11 @@ package homework.education.model;
 import java.util.Objects;
 
 public class User {
-    String name;
-    String surname;
-    String email;
-    String password;
-    String type;
+    private String name;
+    private String surname;
+    private String email;
+    private String password;
+    private String type;
 
 
     public User(String name, String surname, String email, String password, String type) {
