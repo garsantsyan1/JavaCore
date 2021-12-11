@@ -2,10 +2,10 @@ package homework.education.model;
 
 public class Lesson {
 
-    String name;
-    String duration;
-    String lecturerName;
-    double price;
+    private String name;
+    private String duration;
+    private String lecturerName;
+    private double price;
 
     public Lesson(String name, String duration, String lecturerName, double price) {
         this.name = name;

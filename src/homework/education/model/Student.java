@@ -7,13 +7,13 @@ import java.util.Date;
 
 public class Student {
 
-    String name;
-    String surname;
-    int age;
-    String email;
-    String phone;
-    Date registeredDate;
-    Lesson[] lessons;
+    private String name;
+    private String surname;
+    private int age;
+    private String email;
+    private String phone;
+    private Date registeredDate;
+    private Lesson[] lessons;
 
 
     public Student(String name, String surname, int age, String email, String phone, Date registeredDate, Lesson[] lessons) {
