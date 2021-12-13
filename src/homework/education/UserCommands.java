@@ -11,6 +11,7 @@ public interface UserCommands {
     String PRINT_LESSONS = "5";
     String DELETE_LESSON_BY_NAME = "6";
     String DELETE_STUDENT_BY_EMAIL = "7";
+    String LOGOUT = "8";
 
     static void printAdminCommands() {
         System.out.println("please input " + EXIT + " for EXIT");
@@ -21,6 +22,7 @@ public interface UserCommands {
         System.out.println("please input " + PRINT_LESSONS + " for print lessons ");
         System.out.println("please input " + DELETE_LESSON_BY_NAME + " for delete lesson by name");
         System.out.println("please input " + DELETE_STUDENT_BY_EMAIL + " for delete student by email");
+        System.out.println("please input " + LOGOUT + " for logout");
     }
 
     static void printCommands() {
@@ -36,6 +38,7 @@ public interface UserCommands {
         System.out.println("please input " + PRINT_STUDENTS + " for print students");
         System.out.println("please input " + PRINT_STUDENTS_BY_LESSON + " for print students by lesson");
         System.out.println("please input " + PRINT_LESSONS + " for print lessons ");
+        System.out.println("please input " + LOGOUT + " for logout");
     }
 
 }

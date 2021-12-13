@@ -1,6 +1,7 @@
 package homework.education;
 
 
+import homework.education.exception.UserNotFoundException;
 import homework.education.model.Lesson;
 import homework.education.model.Student;
 import homework.education.model.User;
@@ -48,12 +49,13 @@ public class StudentTest implements UserCommands {
         String userDateStr = scanner.nextLine();
         String[] userDate = userDateStr.split(" ");
         if (userDate.length == 5) {
-            if (userDate[4].equals("admin") || userDate[4].equals("user")) {
-                if (userStorage.getByEmail(userDate[2]) == null && !userStorage.checkPassword(userDate[3])) {
+            if (userDate[4].equalsIgnoreCase("admin") || userDate[4].equalsIgnoreCase("user")) {
+                try {
+                    userStorage.getByEmail(userDate[2]);
+                    System.err.println("this email already exist");
+                } catch (UserNotFoundException e) {
                     User user = new User(userDate[0], userDate[1], userDate[2], userDate[3], userDate[4]);
                     userStorage.add(user);
-                } else {
-                    System.out.println("this credential already exist");
                 }
             } else {
                 System.err.println("type must be admin or user");
@@ -61,23 +63,30 @@ public class StudentTest implements UserCommands {
         } else {
             System.err.println("invalid date");
         }
-
-
     }
 
     private static void login() throws ParseException {
         System.out.println("please input email and password");
         String credentialStr = scanner.nextLine();
         String[] credential = credentialStr.split(" ");
-        if (userStorage.getByEmail(credential[0]) != null && userStorage.checkPassword(credential[1])) {
-            if (userStorage.getByType(credential[0]).equals("admin")) {
-                adminCase();
+        User user = null;
+        try {
+            user = userStorage.getByEmail(credential[0]);
+            userStorage.getByEmail(credential[0]);
+            if (user.getPassword().equals(credential[1])) {
+                if (user.getType().equalsIgnoreCase("admin")) {
+                    adminCase();
+                } else if (user.getType().equalsIgnoreCase("user")) {
+                    userCase();
+                }
             } else {
-                userCase();
+                System.err.println("password is wrong!");
             }
-        } else {
-            System.err.println("credentials aren't correct");
+        } catch (UserNotFoundException e) {
+            System.err.println(e.getMessage());
         }
+
+
     }
 
     private static void deleteStudentByEmail() {
@@ -176,7 +185,7 @@ public class StudentTest implements UserCommands {
             String command = scanner.nextLine();
             switch (command) {
                 case UserCommands.EXIT:
-                    isRun = false;
+                    System.exit(0);
                     break;
                 case ADD_LESSON:
                     addLesson();
@@ -199,6 +208,9 @@ public class StudentTest implements UserCommands {
                 case DELETE_STUDENT_BY_EMAIL:
                     deleteStudentByEmail();
                     break;
+                case LOGOUT:
+                    isRun = false;
+                    break;
                 default:
                     System.out.println("Invalid command!");
             }
@@ -212,7 +224,7 @@ public class StudentTest implements UserCommands {
             String command = scanner.nextLine();
             switch (command) {
                 case UserCommands.EXIT:
-                    isRun = false;
+                    System.exit(0);
                     break;
                 case ADD_LESSON:
                     addLesson();
@@ -228,6 +240,9 @@ public class StudentTest implements UserCommands {
                     break;
                 case PRINT_LESSONS:
                     lessonStorage.print();
+                    break;
+                case LOGOUT:
+                    isRun = false;
                     break;
                 default:
                     System.out.println("Invalid command!");
