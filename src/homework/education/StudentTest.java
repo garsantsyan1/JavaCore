@@ -13,7 +13,6 @@ import homework.education.util.DateUtil;
 
 import java.text.ParseException;
 import java.util.Date;
-import java.util.Locale;
 import java.util.Scanner;
 
 public class StudentTest implements UserCommands {
