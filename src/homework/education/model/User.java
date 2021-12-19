@@ -7,10 +7,10 @@ public class User {
     private String surname;
     private String email;
     private String password;
-    private String type;
+    private Type type;
 
 
-    public User(String name, String surname, String email, String password, String type) {
+    public User(String name, String surname, String email, String password, Type type) {
         this.name = name;
         this.surname = surname;
         this.email = email;
@@ -50,11 +50,11 @@ public class User {
         this.password = password;
     }
 
-    public String getType() {
+    public Type getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(Type type) {
         this.type = type;
     }
 

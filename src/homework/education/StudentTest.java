@@ -4,6 +4,7 @@ package homework.education;
 import homework.education.exception.UserNotFoundException;
 import homework.education.model.Lesson;
 import homework.education.model.Student;
+import homework.education.model.Type;
 import homework.education.model.User;
 import homework.education.storage.LessonStorage;
 import homework.education.storage.StudentStorage;
@@ -12,6 +13,7 @@ import homework.education.util.DateUtil;
 
 import java.text.ParseException;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class StudentTest implements UserCommands {
@@ -49,16 +51,16 @@ public class StudentTest implements UserCommands {
         String userDateStr = scanner.nextLine();
         String[] userDate = userDateStr.split(" ");
         if (userDate.length == 5) {
-            if (userDate[4].equalsIgnoreCase("admin") || userDate[4].equalsIgnoreCase("user")) {
+            try {
+                userStorage.getByEmail(userDate[2]);
+                System.err.println("this email already exist");
+            } catch (UserNotFoundException e) {
                 try {
-                    userStorage.getByEmail(userDate[2]);
-                    System.err.println("this email already exist");
-                } catch (UserNotFoundException e) {
-                    User user = new User(userDate[0], userDate[1], userDate[2], userDate[3], userDate[4]);
+                    User user = new User(userDate[0], userDate[1], userDate[2], userDate[3], Type.valueOf(userDate[4].toUpperCase()));
                     userStorage.add(user);
+                } catch (IllegalArgumentException exp) {
+                    System.err.println("type must be admin or user");
                 }
-            } else {
-                System.err.println("type must be admin or user");
             }
         } else {
             System.err.println("invalid date");
@@ -74,9 +76,9 @@ public class StudentTest implements UserCommands {
             user = userStorage.getByEmail(credential[0]);
             userStorage.getByEmail(credential[0]);
             if (user.getPassword().equals(credential[1])) {
-                if (user.getType().equalsIgnoreCase("admin")) {
+                if (user.getType() == Type.ADMIN) {
                     adminCase();
-                } else if (user.getType().equalsIgnoreCase("user")) {
+                } else if (user.getType() == Type.USER) {
                     userCase();
                 }
             } else {
