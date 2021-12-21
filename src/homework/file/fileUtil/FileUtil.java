@@ -5,17 +5,23 @@ import java.io.*;
 public class FileUtil {
 
     static void findLines(String txtPath, String keyword) {
+        File file = new File(txtPath);
 
-        try (BufferedReader inputStream = new BufferedReader(new FileReader(txtPath))) {
-            String line = "";
-            while ((line = inputStream.readLine()) != null) {
-                if (line.contains(keyword)) {
-                    System.out.println(line);
+        if (file.isFile()) {
+            try (BufferedReader inputStream = new BufferedReader(new FileReader(txtPath))) {
+                String line = "";
+                while ((line = inputStream.readLine()) != null) {
+                    if (line.contains(keyword)) {
+                        System.out.println(line);
+                    }
                 }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        } else {
+            System.out.println("The file path is invalid!");
         }
+
     }
 
     static void printSizeOfPackage(String path) {
