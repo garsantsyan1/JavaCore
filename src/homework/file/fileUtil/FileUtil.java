@@ -6,6 +6,7 @@ public class FileUtil {
 
     static void findLines(String txtPath, String keyword) {
         File file = new File(txtPath);
+        boolean isExist = false;
 
         if (file.isFile()) {
             try (BufferedReader inputStream = new BufferedReader(new FileReader(txtPath))) {
@@ -13,7 +14,11 @@ public class FileUtil {
                 while ((line = inputStream.readLine()) != null) {
                     if (line.contains(keyword)) {
                         System.out.println(line);
+                        isExist = true;
                     }
+                }
+                if (!isExist) {
+                    System.out.println("There isn't this word in the file");
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -21,6 +26,7 @@ public class FileUtil {
         } else {
             System.err.println("The file path is invalid!");
         }
+
 
     }
 
