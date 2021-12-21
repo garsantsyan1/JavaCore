@@ -28,6 +28,8 @@ public class ContentSearch {
                     contentSearch(singleFile.getAbsolutePath(), word);
                 }
             }
+        } else {
+            System.err.println("The file path is invalid!");
         }
 
 
