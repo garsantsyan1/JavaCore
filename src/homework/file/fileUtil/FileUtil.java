@@ -36,15 +36,13 @@ public class FileUtil {
         File[] files = file.listFiles();
         String filePath = path + "/" + fileName;
         File newFile = new File(filePath);
-        for (File singleFile : files) {
-            if (!newFile.exists()) {
-                try {
-                    if (newFile.createNewFile()) {
-                        System.out.println("File is created!");
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
+        if (!newFile.exists()) {
+            try {
+                if (newFile.createNewFile()) {
+                    System.out.println("File is created!");
                 }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
 
