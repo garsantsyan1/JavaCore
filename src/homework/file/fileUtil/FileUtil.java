@@ -49,25 +49,30 @@ public class FileUtil {
     }
 
     static void createFileWithContent(String path, String fileName, String content) {
+        File packageFile = new File(path);
         String filePath = path + "/" + fileName;
         File file = new File(filePath);
-        if (!file.exists()) {
-            try {
-                if (file.createNewFile()) {
-                    System.out.println("File is created!");
-                    try (BufferedWriter outputStream = new BufferedWriter(new FileWriter(filePath))) {
-                        outputStream.write(content);
-                    } catch (IOException e) {
-                        e.printStackTrace();
+
+        if (packageFile.isDirectory() && packageFile.exists()) {
+            if (!file.exists()) {
+                try {
+                    if (file.createNewFile()) {
+                        System.out.println("File is created!");
+                        try (BufferedWriter outputStream = new BufferedWriter(new FileWriter(filePath))) {
+                            outputStream.write(content);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
+            } else {
+                System.out.println("File already exists");
             }
         } else {
-            System.out.println("File already exists");
+            System.err.println("The file path is invalid");
         }
-
 
     }
 
