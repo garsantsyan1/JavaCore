@@ -19,21 +19,26 @@ public class FileUtil {
                 e.printStackTrace();
             }
         } else {
-            System.out.println("The file path is invalid!");
+            System.err.println("The file path is invalid!");
         }
 
     }
 
     static void printSizeOfPackage(String path) {
         File file = new File(path);
-        File[] files = file.listFiles();
-        double count = 0;
+        if (file.isDirectory()) {
+            File[] files = file.listFiles();
+            double count = 0;
 
-        for (File singleFile : files) {
-            count += singleFile.length();
+            for (File singleFile : files) {
+                count += singleFile.length();
+            }
+
+            System.out.println(count /= (1024 * 1024));
+        } else {
+            System.err.println("The file path is invalid!");
         }
 
-        System.out.println(count /= (1024 * 1024));
 
     }
 
