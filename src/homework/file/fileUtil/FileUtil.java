@@ -39,7 +39,9 @@ public class FileUtil {
         for (File singleFile : files) {
             if (!newFile.exists()) {
                 try {
-                    newFile.createNewFile();
+                    if (newFile.createNewFile()) {
+                        System.out.println("File is created!");
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
