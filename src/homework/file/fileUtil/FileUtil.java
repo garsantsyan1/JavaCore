@@ -38,6 +38,11 @@ public class FileUtil {
             try {
                 if (newFile.createNewFile()) {
                     System.out.println("File is created!");
+                    try (BufferedWriter outputStream = new BufferedWriter(new FileWriter(filePath))) {
+                        outputStream.write(content);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -46,12 +51,6 @@ public class FileUtil {
             System.out.println("File already exists");
         }
 
-
-        try (BufferedWriter outputStream = new BufferedWriter(new FileWriter(filePath))) {
-            outputStream.write(content);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
     }
 
