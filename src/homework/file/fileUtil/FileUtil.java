@@ -32,8 +32,6 @@ public class FileUtil {
     }
 
     static void createFileWithContent(String path, String fileName, String content) {
-        File file = new File(path);
-        File[] files = file.listFiles();
         String filePath = path + "/" + fileName;
         File newFile = new File(filePath);
         if (!newFile.exists()) {
@@ -44,6 +42,8 @@ public class FileUtil {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        } else {
+            System.out.println("File already exists");
         }
 
 
