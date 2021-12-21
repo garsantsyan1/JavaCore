@@ -33,10 +33,10 @@ public class FileUtil {
 
     static void createFileWithContent(String path, String fileName, String content) {
         String filePath = path + "/" + fileName;
-        File newFile = new File(filePath);
-        if (!newFile.exists()) {
+        File file = new File(filePath);
+        if (!file.exists()) {
             try {
-                if (newFile.createNewFile()) {
+                if (file.createNewFile()) {
                     System.out.println("File is created!");
                     try (BufferedWriter outputStream = new BufferedWriter(new FileWriter(filePath))) {
                         outputStream.write(content);
