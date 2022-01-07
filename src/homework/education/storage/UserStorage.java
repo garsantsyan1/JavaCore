@@ -1,41 +1,46 @@
 package homework.education.storage;
 
 import homework.education.exception.UserNotFoundException;
+import homework.education.model.Student;
 import homework.education.model.User;
+import homework.education.util.FileUtil;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class UserStorage {
-    private User[] users = new User[10];
-    private int size = 0;
+
+    private Map<String, User> users = new HashMap<>();
 
 
     public void add(User user) {
-        if (size == users.length) {
-            extend();
-        }
-        users[size++] = user;
-    }
-
-    private void extend() {
-        User[] tmp = new User[users.length + 10];
-        System.arraycopy(users, 0, tmp, 0, users.length);
-        users = tmp;
+        users.put(user.getEmail(), user);
+        serialize();
     }
 
     public void print() {
-        for (int i = 0; i < size; i++) {
-            System.out.println(users[i] + " ");
+        for (User value : users.values()) {
+            System.out.println(value);
         }
-        System.out.println();
     }
 
-
     public User getByEmail(String email) throws UserNotFoundException {
-        for (int i = 0; i < size; i++) {
-            if (users[i].getEmail().equals(email)) {
-                return users[i];
-            }
+        if (users.get(email) != null) {
+            return users.get(email);
         }
         throw new UserNotFoundException("Email doesn't exist - " + email);
     }
+
+    public void initData() {
+        Map<String, User> userMap = FileUtil.deserializeUserMap();
+        if (userMap != null) {
+            users = userMap;
+        }
+    }
+
+   public void serialize() {
+       FileUtil.serializeUsersMap(users);
+   }
 
 }

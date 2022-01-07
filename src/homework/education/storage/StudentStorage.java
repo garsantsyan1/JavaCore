@@ -1,65 +1,68 @@
 package homework.education.storage;
 
 import homework.education.model.Student;
+import homework.education.util.FileUtil;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class StudentStorage {
-    private Student[] students = new Student[10];
-    private int size = 0;
+
+    private List<Student> students = new LinkedList<>();
+
 
     public void add(Student student) {
-        if (size == students.length) {
-            extend();
-        }
-        students[size++] = student;
-    }
-
-    private void extend() {
-        Student[] tmp = new Student[students.length + 10];
-        System.arraycopy(students, 0, tmp, 0, students.length);
-        students = tmp;
+        students.add(student);
+        serialize();
     }
 
     public void print() {
-        for (int i = 0; i < size; i++) {
-            System.out.println(students[i] + " ");
+        for (Student student : students) {
+            System.out.println(student);
         }
         System.out.println();
     }
 
     public Student getByEmail(String email) {
-        for (int i = 0; i < size; i++) {
-            if (students[i].getEmail().equals(email)) {
-                return students[i];
+        for (Student student : students) {
+            if (student.getEmail().equals(email)) {
+                return student;
             }
         }
         return null;
     }
 
     public void printStudentsByLesson(String name) {
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < students[i].getLessons().length; j++) {
-                if (students[i].getLessons()[j].getName().equals(name)) {
-                    System.out.println(students[i] + " ");
+        for (int i = 0; i < students.size(); i++) {
+            for (int j = 0; j < students.get(i).getLessons().length; j++) {
+                if (students.get(i).getLessons()[j].getName().equals(name)) {
+                    System.out.println(students.get(i) + " ");
                 }
             }
         }
         System.out.println();
     }
 
-    private void deleteByIndex(int index) {
-        for (int i = index + 1; i < size; i++) {
-            students[i - 1] = students[i];
-        }
-        size--;
-    }
-
     public void deleteStudentByEmail(String email) {
-        for (int i = 0; i < size; i++) {
-            if (students[i].getEmail().equals(email)) {
-                deleteByIndex(i);
+        for (Student student : students) {
+            if (student.getEmail().equals(email)) {
+                students.remove(student);
                 break;
             }
         }
+        serialize();
     }
+
+    public void initData() {
+        List<Student> studentsList = FileUtil.deserializeStudents();
+        if (studentsList != null) {
+            students = studentsList;
+        }
+    }
+
+    public void serialize() {
+        FileUtil.serializeStudents(students);
+    }
+
 }
 

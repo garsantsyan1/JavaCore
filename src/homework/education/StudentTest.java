@@ -23,6 +23,7 @@ public class StudentTest implements UserCommands {
     static UserStorage userStorage = new UserStorage();
 
     public static void main(String[] args) throws ParseException {
+        initData();
         boolean isRun = true;
         while (isRun) {
             UserCommands.printCommands();
@@ -41,7 +42,6 @@ public class StudentTest implements UserCommands {
                     System.err.println("Invalid command!");
             }
         }
-
 
     }
 
@@ -249,6 +249,12 @@ public class StudentTest implements UserCommands {
                     System.out.println("Invalid command!");
             }
         }
+    }
+
+    private static void initData() {
+        studentStorage.initData();
+        lessonStorage.initData();
+        userStorage.initData();
     }
 
 }

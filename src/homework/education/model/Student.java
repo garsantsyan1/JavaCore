@@ -2,10 +2,13 @@ package homework.education.model;
 
 import Author2.util.DateUtil;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Objects;
 
-public class Student {
+public class Student implements Serializable {
 
     private String name;
     private String surname;
@@ -94,4 +97,20 @@ public class Student {
                 ", lessons=" + Arrays.toString(lessons) +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return age == student.age && name.equals(student.name) && surname.equals(student.surname) && email.equals(student.email) && phone.equals(student.phone) && registeredDate.equals(student.registeredDate) && Arrays.equals(lessons, student.lessons);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(name, surname, age, email, phone, registeredDate);
+        result = 31 * result + Arrays.hashCode(lessons);
+        return result;
+    }
+
 }

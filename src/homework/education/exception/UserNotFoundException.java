@@ -1,6 +1,6 @@
 package homework.education.exception;
 
-public class UserNotFoundException  extends Exception{
+public class UserNotFoundException extends Exception {
     public UserNotFoundException() {
     }
 

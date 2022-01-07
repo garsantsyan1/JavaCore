@@ -1,6 +1,9 @@
 package homework.education.model;
 
-public class Lesson {
+import java.io.Serializable;
+import java.util.Objects;
+
+public class Lesson implements Serializable {
 
     private String name;
     private String duration;
@@ -54,5 +57,18 @@ public class Lesson {
                 ", lecturerName='" + lecturerName + '\'' +
                 ", price=" + price +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Lesson lesson = (Lesson) o;
+        return Double.compare(lesson.price, price) == 0 && name.equals(lesson.name) && duration.equals(lesson.duration) && lecturerName.equals(lesson.lecturerName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, duration, lecturerName, price);
     }
 }
