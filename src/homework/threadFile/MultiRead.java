@@ -10,29 +10,23 @@ public class MultiRead {
     public static String path = "/Users/Джоник/Desktop/java/sample.txt";
     public static AtomicInteger countOfKeyword = new AtomicInteger();
 
-    public static void main(String[] args) throws IOException {
-        long count = Files.lines(Paths.get(path)).count();
-        String keyword = ";";
-
-        MultithreadRead th = new MultithreadRead(path, 0, (int) (count / 3), keyword);
-        MultithreadRead th1 = new MultithreadRead(path, (int) ((count/3) + 1), (int) (2 * (count / 3)), keyword);
-
-        System.out.println("all lines:" + count);
+    public static void main(String[] args) throws IOException, InterruptedException {
+        //long count = Files.lines(Paths.get(path)).count();
+        //String keyword = ";";
+        List<String> lines = Files.readAllLines(Paths.get(path));
+        System.out.println("all lines: " + lines.size());
         long currentTime = System.currentTimeMillis();
 
 
-        List<String> strings = Files.readAllLines(Paths.get(path)).subList((int) (2 * (count / 3)), (int) count);
-        for (String string : strings) {
-            if (string.contains(keyword)) {
-                countOfKeyword.incrementAndGet();
-            }
-        }
-        try {
-            th.t.join();
-            th1.t.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        MultithreadRead th1 = new MultithreadRead(lines.subList(0, 1149544), ";");
+        MultithreadRead th2 = new MultithreadRead(lines.subList(1149545, 2299088), ";");
+        MultithreadRead th3 = new MultithreadRead(lines.subList(2299089, lines.size()), ";");
+
+
+        th1.t.join();
+        th2.t.join();
+        th3.t.join();
+
 
         System.out.println("found lines: " + countOfKeyword);
         long finishTime = System.currentTimeMillis();
